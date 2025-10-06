@@ -1,13 +1,22 @@
 const express = require('express');
-const path = require("path");
+const path = require('path');
 const app = express();
 
-// Use environment port or fall back to 3000
+// Use environment port or fallback to 3000
 const PORT = process.env.PORT || 3000;
 
-// Serve static files
-app.use(express.static(path.join(__dirname)));
-app.use('/FLAGS', express.static(path.join(__dirname, 'FLAGS')));
+// Serve all static files from 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Example: If you want a separate API route
+app.get('/api/hello', (req, res) => {
+  res.json({ message: 'Hello from backend!' });
+});
+
+// Fallback: serve index.html for any unmatched routes (optional, for SPA)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Start server
 app.listen(PORT, () => {
