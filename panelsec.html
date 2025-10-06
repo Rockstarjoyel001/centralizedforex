@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Saira&display=swap" rel="stylesheet">
+  <title>ORIENT EXCHANGE CURRENCY MANAGEMENT SYSTEM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div>
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <img src="OEC Logo .jpg" alt="Orient Exchange Logo">
+        </div>
+        <div class="company-text" style="font-family: 'Saira', sans-serif;">
+          <h1>ORIENT EXCHANGE HONG KONG</h1>
+          <div class="branch" style="font-weight: bolder; font-family: 'Saira', sans-serif;">
+             <span id="branch-name" contenteditable="true" spellcheck="false"></span>
+          </div>
+
+        </div>
+        <div class="update-date" style="display: none;">
+          Updated as on: <span id="current-time"></span>
+        </div>
+
+        <!-- Settings Button -->
+        <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
+
+      </div>
+
+      <!-- Nameplate -->
+     <div class="nameplate" id="nameplate" style="font-family: 'Saira', sans-serif;">
+        💱 CURRENCY RATE SHEET 💱
+     </div>
+      <!-- Currency Table -->
+    <table>
+  <thead>
+    <tr>
+      <th>CURRENCY</th>
+      <th>BUY RATE</th>
+      <th>SELL RATE</th>
+      <th>TT RATE</th>
+    </tr>
+  </thead>
+  <tbody id="country-rates-body"></tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4" id="update-time" style="text-align: right; font-size: large; font-weight: bolder; background-color:#004080; color: white; font-family: 'Saira', sans-serif;">
+        UPDATED AS ON:
+      </td>
+    </tr>
+  </tfoot>
+</table
+
+      <!-- Advertisement Section -->
+<div class="ad-section">
+        <img src="/OEC Logo .jpg" alt="Advertisement">wdwwdf
+      </div>
+    </div>
+
+    <!-- Marquee -->
+    <div class="marquee-container">
+      <marquee id="marqueeText" behavior="scroll" direction="left" scrollamount="6" style="font-family: 'Saira', sans-serif;">
+             Loading marquee text...
+      </marquee>
+    </div>
+  </div>
+
+ 
+<!-- Settings Modal -->
+<div id="settingsModal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); width:90%; max-width:700px; background:white; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.5); padding:20px; z-index:1000;">
+  <span class="close-btn" id="closeSettings" style="cursor:pointer; float:right; font-size:24px;">&times;</span>
+  <h2>Settings</h2>
+
+  <!-- Section: Upload Currency CSV -->
+  <div class="settings-section" style="margin-bottom:20px;">
+    <h3>Currency CSV Upload</h3>
+    <p>Upload a CSV file containing currency information.</p>
+    <input type="file" id="currencyCsvInput" accept=".csv">
+    <button id="uploadCsvBtn" style="margin-top:10px;">Upload</button>
+    <p id="csvStatus" style="color:green; margin-top:5px;"></p>
+
+    <!-- Preview Table -->
+    <div id="csvPreview" style="margin-top:15px; max-height:300px; overflow:auto;">
+      <table border="1" id="previewTable" style="width:100%; border-collapse:collapse; text-align:center;">
+        <thead id="previewHead"></thead>
+        <tbody id="previewBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section: Display Settings -->
+  <div class="settings-section">
+    <h3>Display Settings</h3>
+    <label>Chunk Size (rows visible): <input type="number" id="chunkSizeInput" min="1" value=""></label><br><br>
+    <label>Flag Width (px): <input type="number" id="flagWidthInput" min="1" value=""></label><br><br>
+    <label>Flag Height (px): <input type="number" id="flagHeightInput" min="1" value=""></label><br><br>
+    <label>Scroll Interval (seconds): <input type="number" id="scrollIntervalInput" min="0.1" step="0.1" value=""></label><br><br>
+    <button id="saveDisplaySettingsBtn" style="margin-top:10px;">Save Settings</button>
+    <p id="displaySettingsStatus" style="color:green; margin-top:5px;"></p>
+  </div>
+
+  <!-- Section: Table & Nameplate Settings -->
+  <div class="settings-section">
+    <h3>Table & Nameplate Settings</h3>
+    <label>Nameplate Font Size (px): <input type="number" id="nameplateFontSizeInput" min="8" value=""></label><br><br>
+    <button id="saveTableSettingsBtn" style="margin-top:10px;">Save Table Settings</button>
+    <p id="tableSettingsStatus" style="color:green; margin-top:5px;"></p>
+  </div>
+
+  <!-- Section: Advertisements -->
+
+<div class="settings-section">
+  <h3>Advertisements</h3>
+  <label><input type="checkbox" id="enableAdsCheckbox"> Enable Advertisements</label><br><br>
+
+  <p>Upload ad files (images: jpg, png, gif / videos: mp4)</p>
+  <input type="file" id="adFilesInput" accept=".jpg,.jpeg,.png,.gif,.mp4" multiple>
+  <button id="saveAdsBtn" style="margin-top:10px;">Save Ads</button>
+  <p id="adsStatus" style="color:green; margin-top:5px;"></p>
+
+  <!-- Preview Ads -->
+  <div id="adsPreview" style="margin-top:15px; max-height:300px; overflow:auto; display:flex; gap:10px; flex-wrap:wrap;"></div>
+</div>
+</div>
+<script src="modal.js"></script>
+<script src="branch.js"></script>
+<script src="time.js"></script>  
+<script src="maruee.js"></script>
+<script src="rates.js"></script>
+<script src="csv.js"></script>
+<script src="plate.js"></script>
+<script src="promo.js"></script>
+</body>
+</html>

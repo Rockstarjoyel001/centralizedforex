@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Saira&display=swap" rel="stylesheet">
+  <title>ORIENT EXCHANGE COMPANY (HK) LIMITED</title>
+  <link rel="stylesheet" href="TEST.CSS">
+  <style>
+
+  </style>
+</head>
+<body>
+
+ <!-- MAIN CONTENT WRAPPER -->
+  <div class="main-content">
+    <div class="container">
+
+      <!-- Header -->
+      <!-- <div class="header" style="display: flex; align-items: center; justify-content: space-between; padding: 10px;">
+        <div class="logo">
+          <img src="logo.gif" id="headerSettingsBtn" style="cursor: pointer;">
+        </div>
+        <div class="company-text" style="text-align: center; flex: 1; margin: 0 20px; font-family: 'Segoe UI', sans-serif;">
+          <h1 id="title" >ORIENT EXCHANGE COMPANY (HK) LIMITED</h1>
+          <div class="branch" style="font-weight: bolder;">
+            <span id="branch-name"></span>
+          </div>
+        </div>
+      </div> -->
+
+<div class="header" style="display: flex; align-items: center; justify-content: space-between; padding: 10px;">
+  <div class="logo">
+    <img src="logo.gif" id="headerSettingsBtn" style="cursor: pointer;">
+  </div>
+  <div class="company-text" style="text-align: center; flex: 1; margin: 0 20px; font-family: 'Segoe UI', sans-serif;">
+    <h1 id="company-name" style="margin: 0; font-size: 25px; font-weight: bold;">
+      ORIENT EXCHANGE COMPANY (HK) LIMITED
+    </h1>
+    <div class="branch" style="font-weight: bolder;">
+      <span id="branch-name"></span>
+    </div>
+  </div>
+</div>
+
+
+      <!-- Nameplate -->
+      <div class="nameplate">💱 CURRENCY RATE SHEET 💱</div>
+
+      <!-- Currency Table -->
+      <table>
+        <thead>
+          <tr>
+            <th>CURRENCY</th>
+            <th>BUY RATE</th>
+            <th>SELL RATE</th>
+            <th>TT RATE</th>
+          </tr>
+        </thead>
+        <tbody id="country-rates-body"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" id="update-time" style="text-align: right; font-size: large; font-weight: bolder;background-color:#004080; color: white;">UPDATED AS ON: </td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <!-- Marquee -->
+      <div class="marquee-container" style="width: 100%; border: 1px solid #ccc; padding: 5px; cursor: pointer;">
+        <marquee id="marqueeText" behavior="scroll" direction="left" scrollamount="6">
+         RATES ARE PRIOR TO CHANGE WITHOUT NOTICE...
+
+        </marquee>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FULL SCREEN AD SECTION -->
+  <div class="ad-section"></div>
+
+  <!-- Settings Modal -->
+  <div id="headerSettingsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Settings</h2>
+        <span id="closeHeaderModal" class="close-btn">❌</span>
+      </div>
+      <form id="settingsForm" class="modal-form">
+        <label style="display: inline-flex; align-items: center; gap: 8px;">
+          <input type="checkbox" id="adsEnabled" style="margin: 0; width: 16px; height: 16px;">
+          ENABLE PROMOTIONS
+        </label>
+        <label>
+          Upload Ads (Images/Videos):
+          <input type="file" id="adsFilesInput" accept="image/*,video/*" multiple>
+        </label>
+        <div id="adsPreview" class="preview-box">
+          <i>No ads uploaded</i>
+        </div>
+        <label>
+          Ad Interval (ms):
+          <input type="number" id="adInterval" min="1" placeholder="1000">
+        </label>
+        <label>
+          Ad Rotate Interval (ms):
+          <input type="number" id="adRotateInterval" min="1" placeholder="1000">
+        </label>
+        <label>
+          Currency Display Interval (ms):
+          <input type="number" id="displayInterval" min="1" placeholder="1000">
+        </label>
+        <label>
+          Upload Currency CSV:
+          <input type="file" id="currencyCsvInput" accept=".csv">
+        </label>
+        <div id="currencyPreview" class="preview-box">
+          <i>No currency data uploaded</i>
+        </div>
+        <button type="submit" class="save-btn">SAVE SETTINGS</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="headerModalOverlay" class="modal-overlay"></div>
+
+  <script src="TEST.JS">const { ipcRenderer } = require('electron');
+
+// Listen for clear-local-storage message from main process
+ipcRenderer.on('clear-local-storage', () => {
+  console.log('Clearing localStorage before exit...');
+  localStorage.clear();
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(to right, #e3f2fd,#e3f2fd);
+  font-family: 'Segoe UI', sans-serif;
+  overflow-y: scroll
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.container {
+  width: 100vh;
+  height: 100vw;
+  transform: rotate(-90deg);
+  transform-origin: left top;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Header Styles */
+.header {
+  background: #004080;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.logo img {
+  height: 90px; 
+}
+
+.company-text {
+  text-align: center;
+  flex: 1;
+}
+
+.company-text h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 1px;
+}
+
+.branch {
+  font-size: 26px;
+  margin-top: 4px;
+}
+
+/* Settings Button */
+.settings-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-btn:hover {
+  color: #ffcc00;
+}
+
+/* Settings Modal */
+#settingsModal {
+  display: none; 
+  position: fixed; 
+  z-index: 9999; 
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  overflow: auto;
+  padding: 20px;
+}
+
+#settingsModal .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #004080;
+}
+
+#settingsModal .close-btn:hover {
+  color: red;
+}
+
+/* Nameplate */
+.nameplate {
+  margin: 20px auto 10px auto;
+  text-align: center;
+  background: #f0f0f0;
+  border-left: 5px solid #004080;
+  border-right: 5px solid #004080;
+  border-radius: 8px;
+  padding: 10px 20px;
+  /* font-size: 25px; */
+  font-weight: bold;
+  color: #004080;
+  width: fit-content;
+}
+
+/* Table Styles */
+.table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  transition: margin-bottom 0.3s ease-in-out;
+}
+
+th, td {
+  padding: 4px 6px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+th {
+  background-color: #004080;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Advertisement Section */
+.ad-section {
+  margin: 20px auto 0 auto;
+  width: 95%;
+  height: 130px;
+  background-color: #fff8dc;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #555;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: none;
+}
+
+.ad-section img {
+  width: 100%;  
+  height: 100%; 
+  object-fit: cover; 
+}
+
+/* Marquee */
+.marquee-container {
+  width: 100%;
+  background-color: #004080;
+  color: white;
+  font-size: 18px;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+.marquee-container marquee {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.flag {
+  height: 90px;
+  width: auto;
+}
+
+.country-data {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding-left: 20px;
+  border: 1px solid #dfdfdf;
+  outline: none;
+}
+
+
+
+td {
+  font-size: x-large;
+  font-weight: bold;
+}

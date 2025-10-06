@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@400;600;700&display=swap" rel="stylesheet">
+<title>ORIENT EXCHANGE COMPANY (HK) LIMITED</title>
+<style>
+body {
+    font-family: 'Saira', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #004080;
+    color: white;
+    padding: 15px 30px;
+    gap: 20px;
+}
+header img { height: 80px; width: auto; }
+.header-center { text-align: center; flex: 1; }
+.header-center h1 { margin: 0; font-size: 2.5rem; }
+.header-center h2 { margin: 0; font-size: 1.8rem; font-weight: 400; }
+.header-right { position: relative; }
+header h1 { margin: 0; font-size: 24px; }
+#settingsBtn {
+    background: transparent; border: none; padding: 8px 16px; font-size: 1rem;
+    cursor: pointer; border-radius: 8px; box-shadow: 4px 4px 8px transparent, -4px -4px 8px transparent; 
+    transition: all 0.2s ease; color: #333;
+}
+#settingsBtn:hover { box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px ; }
+#settingsBtn:active { box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff; transform: translateY(1px); }
+#settingsModal { display: none; position: fixed; top: 5%; left: 50%; transform: translateX(-50%);
+    width: 85%; max-width: 1000px; max-height: 90%; background: #fff; border-radius: 12px; 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4); z-index: 1000; padding: 20px 30px; overflow-y: auto; font-family: Arial, sans-serif; }
+#settingsModal h2 { margin-top: 0; }
+#closeModal { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; background: none; border: none; color: #004080; }
+#overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 900; }
+.main-container { display: flex; padding: 10px 20px; gap: 10px; transition: all 0.5s ease; }
+#currencyTable { border-collapse: collapse; width: 100%; transition: width 0.5s ease; }
+#currencyTable th, #currencyTable td { border: 1px solid #ddd; padding: 15px; text-align: center; font-weight: bold; }
+#currencyTable th { background: #004080; color: white; font-size: 2rem; }
+#currencyTable td { font-size: 1.8rem; }
+td[contenteditable="false"] { background: #f0f8ff; font-size: 1.5rem; }
+.flag-currency { display: flex; align-items: center; gap: 15px; font-size: 2rem; font-weight: bold; }
+.flag-currency img { width: 120px; height: 120px; }
+#promotion { width: 50%; background: transparent; display: none; align-items: center; justify-content: center; overflow: hidden; transition: width 0.5s ease; }
+#promotion img, #promotion video { width: 90%; height: 90%; object-fit: contain; }
+#marquee-container { position: fixed; bottom: 0; width: 100%; background: #e0e0e0; box-shadow: 0 -2px 5px rgba(0,0,0,0.2); overflow: hidden; height: 60px; display: flex; align-items: center; }
+#marquee { display: inline-block; white-space: nowrap; font-size: 2rem; font-weight: bold; padding-left: 100%; animation: marquee 50s linear infinite; }
+#marquee.editing { animation-play-state: paused; }
+@keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-100%); } }
+#branchName { margin: 0; font-size: 1.8rem; font-weight: 400; cursor: text; background-color: transparent; padding: 2px 5px; border-radius: 5px; }
+#branchName:focus { outline: 2px solid #ffd700; background-color: rgba(255,255,255,0.3); }
+.neumorphic-btn { width: 40px; height: 40px; padding: 0; border: none; border-radius: 50%; background: transparent; box-shadow: 4px 4px 8px transparent, -4px -4px 8px transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+.neumorphic-btn img { width: 20px; height: 20px; }
+.neumorphic-btn:hover { box-shadow: 3px 3px 6px transparent, -3px -3px 6px transparent; }
+.neumorphic-btn:active { box-shadow: inset 2px 2px 5px transparent, inset -2px -2px 5px transparent; transform: translateY(1px); }
+.modal-section { margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; }
+.modal-section h3 { margin-top: 0; color: #004080; }
+.modal-section input[type="file"], .modal-section input[type="number"] { display: block; margin: 10px 0; padding: 8px; font-size: 1rem; }
+.modal-section button { padding: 8px 16px; font-size: 1rem; background: #004080; color: #fff; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s ease; }
+.modal-section button:hover { background: #002b50; }
+.table-wrapper { margin-top: 15px; overflow-x: auto; }
+#preview { border-collapse: collapse; width: 100%; min-width: 600px; }
+#preview th, #preview td { border: 1px solid #ddd; padding: 10px; text-align: center; font-size: 1.1rem; }
+#preview th { background: #004080; color: white; font-weight: bold; }
+#preview td { background: #f0f8ff; }
+#settingsModal::-webkit-scrollbar { width: 10px; }
+#settingsModal::-webkit-scrollbar-thumb { background-color: #004080; border-radius: 5px; }
+#settingsModal::-webkit-scrollbar-track { background: #f1f1f1; }
+</style>
+</head>
+<body>
+
+<header style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; background:#004080; color:white; padding:15px 20px; gap:15px;">
+  <!-- Logo -->
+  <div class="header-left" style="flex:0 0 auto;">
+      <img src="logo.gif" alt="Company Logo" 
+           style="height:80px; width:auto; max-width:100%;">
+  </div>
+
+  <!-- Center Title -->
+  <div class="header-center" style="text-align:center; flex:1 1 300px;">
+      <h1 style="margin:0; font-size:2rem;">ORIENT EXCHANGE COMPANY (HK) LIMITED</h1>
+      <h2 id="branchName" contenteditable="true" spellcheck="false" style="margin:0; font-size:1.2rem; font-weight:400;  text-transform: uppercase;">CAUSEWAY BAY BRANCH</h2>
+  </div>
+
+  <!-- Settings Button -->
+<div style="position: relative;">
+  <button id="settingsBtn" style="background:transparent; border:none; padding:8px; cursor:pointer;">
+    <img src="settings.png" alt="Settings" style="width:30px; height:30px;">
+  </button>
+</div>
+</header>
+
+<div class="main-container">
+    <table id="currencyTable">
+        <thead>
+            <tr>
+                <th>CURRENCY</th>
+                <th>TT RATE</th>
+                <th>BUY RATE</th>
+                <th>SELL RATE</th>
+            </tr>
+        </thead>
+        <tbody id="currencyBody"></tbody>
+    </table>
+
+    <div id="promotion"></div>
+</div>
+
+<div id="overlay"></div>
+<div id="settingsModal">
+    <button id="closeModal">&times;</button>
+    <h2 style=" font-family: 'Saira', sans-serif;">Settings Panel</h2>
+
+    <!-- CSV Upload -->
+    <div class="modal-section">
+        <h3 style=" font-family: 'Saira', sans-serif;">Upload Currency CSV</h3>
+        <p style=" font-family: 'Saira', sans-serif;">CSV columns: <b>Currency Code, Currency Name, Buy Rate, Sell Rate, TTRemittance Rate</b></p>
+        <input type="file" id="csvFile" accept=".csv">
+        <button id="saveBtn" style=" font-family: 'Saira', sans-serif;">Save</button>
+        <div class="table-wrapper"><table id="preview"></table></div>
+    </div>
+
+    <!-- Promotions -->
+    <div class="modal-section" id="promotionsSection">
+        <h3 style=" font-family: 'Saira', sans-serif;">Promotions / Ads</h3>
+        <label><input type="checkbox" id="enablePromotions" style=" font-family: 'Saira', sans-serif;"> Enable Promotions</label>
+        <p style=" font-family: 'Saira', sans-serif;">Upload images or videos:</p>
+        <input type="file" id="promoFiles" accept="image/*,video/*" multiple>
+        <button id="savePromotionsBtn" style=" font-family: 'Saira', sans-serif;">Save Promotions</button>
+        <div id="promoPreview" class="table-wrapper"></div>
+    </div>
+
+    <!-- Rotation Intervals -->
+ <div class="modal-section">
+    <h3 style=" font-family: 'Saira', sans-serif;">Rotation Intervals</h3>
+    <label style=" font-family: 'Saira', sans-serif;">Currency Rotate Interval (seconds): 
+        <input type="number" id="currencyIntervalInput" min="1" step="1">
+    </label><br><br>
+
+    <label style="display: none;" style=" font-family: 'Saira', sans-serif;">Promotion Rotate Interval (seconds): 
+        <input style="display: none;" type="number" id="promoIntervalInput" min="1" step="1">
+    </label><br><br>
+
+    <label style=" font-family: 'Saira', sans-serif;">Currency Chunk Size (currencies per rotation): 
+        <input type="number" id="chunkSizeInput" min="1" step="1">
+    </label><br><br>
+
+    <label style=" font-family: 'Saira', sans-serif;">Promotion will be displayed for Interval (seconds): 
+        <input type="number" id="promoDisplayInput" min="1" step="1">
+    </label><br><br>
+
+    <label style=" font-family: 'Saira', sans-serif;">Promotion will be hidden For (seconds): 
+        <input type="number" id="promoHideInput" min="1" step="1">
+    </label><br><br>
+
+    <button id="saveIntervalsBtn" style=" font-family: 'Saira', sans-serif;">Save</button>
+</div>
+
+
+    <!-- Font & Flag size settings -->
+    <div class="modal-section">
+        <h3 style=" font-family: 'Saira', sans-serif;">Appearance Settings</h3>
+        <label style=" font-family: 'Saira', sans-serif;">Table Heading Size (px): 
+        <input type="number" id="headingSizeInput" min="10" step="1">
+        </label><br><br>
+        <label style=" font-family: 'Saira', sans-serif;">Table Currency Font Size (rem): <input type="number" id="fontSizeInput" min="0.5" step="0.1"></label><br><br>
+        <label style=" font-family: 'Saira', sans-serif;">Table Flag Size (px): <input type="number" id="flagSizeInput" min="20" step="5"></label><br><br>
+         <label style=" font-family: 'Saira', sans-serif;">Marquee Font Size (px): <input type="number" id="marqueesize" min="20" step="5"></label><br><br>
+        <button id="saveAppearanceBtn" style=" font-family: 'Saira', sans-serif;">Save Appearance</button>
+    </div>
+</div>
+
+<div id="marquee-container">
+    <div id="marquee" contenteditable="true" spellcheck="false" style=" font-family: 'Saira', sans-serif;"> RATES ARE PRIOR TO CHANGE WITHOUT NOTICE...</div>
+</div>
+
+<script>
+// --- Config ---
+let CURRENCY_ROTATE_INTERVAL = JSON.parse(localStorage.getItem("CURRENCY_ROTATE_INTERVAL")) || 5000;
+let HEADING_SIZE = JSON.parse(localStorage.getItem("HEADING_SIZE")) || 24;
+let PROMO_ROTATE_INTERVAL = JSON.parse(localStorage.getItem("PROMO_ROTATE_INTERVAL")) || 1000;
+let FLAG_WIDTH = JSON.parse(localStorage.getItem("FLAG_WIDTH")) || 80;
+let FLAG_HEIGHT = JSON.parse(localStorage.getItem("FLAG_HEIGHT")) || 80;
+let TD_FONT_SIZE = JSON.parse(localStorage.getItem("TD_FONT_SIZE")) || 1.2;
+let MARQUEE_SIZE = JSON.parse(localStorage.getItem("MARQUEE_SIZE")) || 32;
+let CHUNK_SIZE = JSON.parse(localStorage.getItem("CHUNK_SIZE")) || 7;
+let PROMO_DISPLAY_INTERVAL = JSON.parse(localStorage.getItem("PROMO_DISPLAY_INTERVAL")) || 10000;
+let PROMO_HIDE_INTERVAL = JSON.parse(localStorage.getItem("PROMO_HIDE_INTERVAL")) || 10000;
+
+// --- Elements ---
+const currencyBody = document.getElementById('currencyBody');
+const promoDiv = document.getElementById('promotion');
+const currencyTable = document.getElementById('currencyTable');
+const marquee = document.getElementById('marquee');
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsModal = document.getElementById('settingsModal');
+const closeModal = document.getElementById('closeModal');
+const overlay = document.getElementById('overlay');
+
+// --- Sample currency (placeholder, will be replaced by CSV if uploaded) ---
+let currencies = JSON.parse(localStorage.getItem("currencies")) || [
+    {code: 'HK', name: 'Hong Kong Dollar', tt: '0.23', buy: '55.2', sell: '0.45'},
+];
+
+// --- Flags ---
+function getFlagPath(code){ 
+    return code ? `FLAGS/${code.slice(0,2).toUpperCase()}.png` : 'FLAGS/default.png'; 
+}
+
+// --- Rolling window ---
+let startIndex = 0;
+
+// --- Initialize table ---
+function initCurrencyTable() {
+    currencyBody.innerHTML = '';
+    for (let i = 0; i < Math.min(CHUNK_SIZE, currencies.length); i++) {
+        const idx = (startIndex + i) % currencies.length;
+        addCurrencyRow(currencies[idx], false);
+    }
+}
+
+// --- Add currency row ---
+function addCurrencyRow(c, editable = true) {
+    const tr = document.createElement('tr');
+
+    const code = c['Currency Code'] || c.code || 'N/A';
+    const name = c['Currency Name'] || c.name || code;
+    const tt = c['TTRemittance Rate'] || c.tt || '';
+    const buy = c['Buy Rate'] || c.buy || '';
+    const sell = c['Sell Rate'] || c.sell || '';
+    const flagPath = getFlagPath(code);
+
+    tr.innerHTML = `
+        <td ${editable ? 'contenteditable="true"' : ''} data-type="name">
+            <div class="flag-currency" style="font-size:${TD_FONT_SIZE}rem">
+                <img src="${flagPath}" alt="${code}" style="width:${FLAG_WIDTH}px;height:${FLAG_HEIGHT}px;" onerror="this.src='FLAGS/default.png'">
+                <span>${name}</span>
+            </div>
+        </td>
+        <td ${editable ? 'contenteditable="true"' : ''} data-type="tt" style="font-size:${TD_FONT_SIZE}rem">${tt}</td>
+        <td ${editable ? 'contenteditable="true"' : ''} data-type="buy" style="font-size:${TD_FONT_SIZE}rem">${buy}</td>
+        <td ${editable ? 'contenteditable="true"' : ''} data-type="sell" style="font-size:${TD_FONT_SIZE}rem">${sell}</td>
+    `;
+
+    if(editable){
+        tr.querySelectorAll('td[contenteditable]').forEach(cell=>{
+            cell.addEventListener('input', e=>{
+                const type = e.target.dataset.type;
+                const idx = currencies.findIndex(cur => (cur['Currency Code'] || cur.code) === code);
+                if(type==='name'){ 
+                    currencies[idx]['Currency Name'] = e.target.innerText.trim();
+                } else { 
+                    const keyMap={tt:'TTRemittance Rate', buy:'Buy Rate', sell:'Sell Rate'};
+                    currencies[idx][keyMap[type]] = e.target.innerText;
+                }
+                localStorage.setItem("currencies", JSON.stringify(currencies));
+            });
+        });
+    }
+
+    currencyBody.appendChild(tr);
+}
+
+// --- Rolling function ---
+function rollCurrencies() {
+    if(currencies.length === 0) return;
+    if(currencyBody.firstChild) currencyBody.removeChild(currencyBody.firstChild);
+    const nextIndex = (startIndex + CHUNK_SIZE) % currencies.length;
+    addCurrencyRow(currencies[nextIndex], true);
+    startIndex = (startIndex + 1) % currencies.length;
+}
+
+// --- Initialize ---
+initCurrencyTable();
+setInterval(rollCurrencies, CURRENCY_ROTATE_INTERVAL);
+
+// --- Marquee ---
+marquee.style.fontSize = MARQUEE_SIZE + "px";
+marquee.style.lineHeight = MARQUEE_SIZE + "px";
+marquee.addEventListener('focus',()=>{ marquee.classList.add('editing'); });
+marquee.addEventListener('blur',()=>{ marquee.classList.remove('editing'); });
+
+// --- Heading size ---
+document.querySelectorAll("thead th").forEach(th => { th.style.fontSize = HEADING_SIZE + "px"; });
+
+// --- Modal ---
+settingsBtn.addEventListener('click',()=>{ settingsModal.style.display='block'; overlay.style.display='block'; });
+closeModal.addEventListener('click',()=>{ settingsModal.style.display='none'; overlay.style.display='none'; });
+overlay.addEventListener('click',()=>{ settingsModal.style.display='none'; overlay.style.display='none'; });
+
+// --- CSV Upload ---
+const csvFile = document.getElementById('csvFile');
+const preview = document.getElementById('preview');
+let parsedData = [];
+function parseCSV(text){
+    const rows=text.trim().split("\n");
+    const headers=rows[0].split(/\t|,/).map(h=>h.trim());
+    return rows.slice(1).map(r=>{ 
+        const values=r.split(/\t|,/).map(v=>v.trim()); 
+        let obj={}; 
+        headers.forEach((h,i)=>obj[h]=values[i]); 
+        return obj; 
+    });
+}
+
+csvFile.addEventListener('change',e=>{
+    const file=e.target.files[0];
+    if(file){
+        const reader=new FileReader();
+        reader.onload=(event)=>{
+            parsedData=parseCSV(event.target.result);
+            preview.innerHTML="<tr><th>Code</th><th>Name</th><th>Buy</th><th>Sell</th><th>TT</th></tr>";
+            parsedData.forEach(c=>{
+                preview.innerHTML+=`<tr><td>${c['Currency Code']}</td><td>${c['Currency Name']}</td><td>${c['Buy Rate']}</td><td>${c['Sell Rate']}</td><td>${c['TTRemittance Rate']}</td></tr>`;
+            });
+        };
+        reader.readAsText(file);
+    }
+});
+
+document.getElementById('saveBtn').addEventListener('click',()=>{
+    if(parsedData.length){
+        // Replace old currencies with CSV data
+        currencies = parsedData.map(c => ({
+            code: c['Currency Code'] || 'N/A',
+            name: c['Currency Name'] || c['Currency Code'] || 'N/A',
+            tt: c['TTRemittance Rate'] || '',
+            buy: c['Buy Rate'] || '',
+            sell: c['Sell Rate'] || ''
+        }));
+        localStorage.setItem("currencies", JSON.stringify(currencies));
+         showToast("Currencies loaded from CSV!");
+        parsedData=[]; 
+        preview.innerHTML=""; 
+        initCurrencyTable();
+    } else  showToast("No data to save!");
+});
+
+// --- Promotions ---
+let savedPromotions = JSON.parse(localStorage.getItem("promotions")) || {enabled:false,items:[]};
+const enablePromotions=document.getElementById("enablePromotions");
+const promoFiles=document.getElementById("promoFiles");
+const promoPreview=document.getElementById("promoPreview");
+enablePromotions.checked=savedPromotions.enabled;
+renderPromoPreview();
+enablePromotions.addEventListener("change",()=>{ savedPromotions.enabled=enablePromotions.checked; localStorage.setItem("promotions",JSON.stringify(savedPromotions)); });
+promoFiles.addEventListener("change",()=>{
+    Array.from(promoFiles.files).forEach(file=>{
+        const reader=new FileReader();
+        reader.onload=e=>{
+            let type=''; if(file.type.startsWith("video")) type="video"; else if(file.type.startsWith("image")) type="img"; else return  showToast(`Unsupported file: ${file.name}`);
+            savedPromotions.items.push({type,src:e.target.result}); renderPromoPreview();
+        };
+        reader.readAsDataURL(file);
+    });
+});
+document.getElementById("savePromotionsBtn").addEventListener("click",()=>{ localStorage.setItem("promotions",JSON.stringify(savedPromotions));  showToast("Promotions saved!"); });
+
+function renderPromoPreview() {
+    promoPreview.innerHTML = '';
+
+    if (!savedPromotions.items || savedPromotions.items.length === 0) {
+        promoPreview.innerHTML = "<p>No promotions uploaded yet.</p>";
+        return;
+    }
+
+    // Set promoPreview as horizontal scroll container
+    promoPreview.style.display = "flex";
+    promoPreview.style.overflowX = "auto";
+    promoPreview.style.gap = "15px";
+    promoPreview.style.padding = "10px 0";
+
+    savedPromotions.items.forEach(p => {
+        const container = document.createElement("div");
+        container.style.flex = "0 0 auto"; // Prevent shrinking
+        container.style.textAlign = "center";
+        container.style.border = "1px solid #ccc";
+        container.style.borderRadius = "10px";
+        container.style.padding = "10px";
+        container.style.backgroundColor = "#f9f9f9";
+        container.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
+
+        let media;
+        if (p.type === "img") {
+            media = document.createElement("img");
+            media.src = p.src;
+        } else if (p.type === "video") {
+            media = document.createElement("video");
+            media.src = p.src;
+            media.controls = true;
+            media.autoplay = true;
+            media.loop = true;
+            media.muted = true;
+        }
+
+        media.style.width = "200px";
+        media.style.height = "auto";
+        media.style.maxHeight = "150px";
+        media.style.borderRadius = "8px";
+
+        container.appendChild(media);
+        promoPreview.appendChild(container);
+    });
+}
+
+
+// --- Appearance settings ---
+const fontSizeInput=document.getElementById("fontSizeInput");
+const flagSizeInput=document.getElementById("flagSizeInput");
+const marqueeSizeInput=document.getElementById("marqueesize");
+const headingSizeInput=document.getElementById("headingSizeInput");
+const saveAppearanceBtn=document.getElementById("saveAppearanceBtn");
+fontSizeInput.value=TD_FONT_SIZE; flagSizeInput.value=FLAG_WIDTH; marqueeSizeInput.value=MARQUEE_SIZE; headingSizeInput.value=HEADING_SIZE;
+saveAppearanceBtn.addEventListener("click",()=>{
+    TD_FONT_SIZE=parseFloat(fontSizeInput.value)||1.2;
+    FLAG_WIDTH=parseInt(flagSizeInput.value)||80;
+    FLAG_HEIGHT=FLAG_WIDTH;
+    MARQUEE_SIZE=parseInt(marqueeSizeInput.value)||32;
+    HEADING_SIZE=parseInt(headingSizeInput.value)||24;
+    marquee.style.fontSize=MARQUEE_SIZE+"px"; marquee.style.lineHeight=MARQUEE_SIZE+"px";
+    document.querySelectorAll("thead th").forEach(th=>th.style.fontSize=HEADING_SIZE+"px");
+    localStorage.setItem("TD_FONT_SIZE",TD_FONT_SIZE);
+    localStorage.setItem("FLAG_WIDTH",FLAG_WIDTH);
+    localStorage.setItem("FLAG_HEIGHT",FLAG_HEIGHT);
+    localStorage.setItem("MARQUEE_SIZE",MARQUEE_SIZE);
+    localStorage.setItem("HEADING_SIZE",HEADING_SIZE);
+     showToast("Appearance settings saved!");
+});
+
+// --- Interval settings ---
+const currencyIntervalInput=document.getElementById("currencyIntervalInput");
+const promoIntervalInput=document.getElementById("promoIntervalInput");
+const chunkSizeInput=document.getElementById("chunkSizeInput");
+const promoDisplayInput=document.getElementById("promoDisplayInput");
+const promoHideInput=document.getElementById("promoHideInput");
+const saveIntervalsBtn=document.getElementById("saveIntervalsBtn");
+currencyIntervalInput.value=Math.floor(CURRENCY_ROTATE_INTERVAL/1000);
+promoIntervalInput.value=Math.floor(PROMO_ROTATE_INTERVAL/1000);
+chunkSizeInput.value=CHUNK_SIZE;
+promoDisplayInput.value=Math.floor(PROMO_DISPLAY_INTERVAL/1000);
+promoHideInput.value=Math.floor(PROMO_HIDE_INTERVAL/1000);
+saveIntervalsBtn.addEventListener("click",()=>{
+    const currencyValSec=parseInt(currencyIntervalInput.value,10);
+    const promoValSec=parseInt(promoIntervalInput.value,10);
+    const chunkSizeVal=parseInt(chunkSizeInput.value,10);
+    const promoDisplaySec=parseInt(promoDisplayInput.value,10);
+    const promoHideSec=parseInt(promoHideInput.value,10);
+    if(currencyValSec>=1){ CURRENCY_ROTATE_INTERVAL=currencyValSec*1000; localStorage.setItem("CURRENCY_ROTATE_INTERVAL",JSON.stringify(CURRENCY_ROTATE_INTERVAL)); }
+    if(promoValSec>=1){ PROMO_ROTATE_INTERVAL=promoValSec*1000; localStorage.setItem("PROMO_ROTATE_INTERVAL",JSON.stringify(PROMO_ROTATE_INTERVAL)); }
+    if(chunkSizeVal>=1){ CHUNK_SIZE=chunkSizeVal; localStorage.setItem("CHUNK_SIZE",JSON.stringify(CHUNK_SIZE)); }
+    if(promoDisplaySec>=1){ PROMO_DISPLAY_INTERVAL=promoDisplaySec*1000; localStorage.setItem("PROMO_DISPLAY_INTERVAL",JSON.stringify(PROMO_DISPLAY_INTERVAL)); }
+    if(promoHideSec>=1){ PROMO_HIDE_INTERVAL=promoHideSec*1000; localStorage.setItem("PROMO_HIDE_INTERVAL",JSON.stringify(PROMO_HIDE_INTERVAL)); }
+     showToast("Settings saved! Refresh page to apply.");
+});
+
+// --- Promotion toggle ---
+let promoVisible=true; let promoIndex=0;
+function togglePromotion(){
+    const promotions=JSON.parse(localStorage.getItem("promotions"))||{enabled:false,items:[]};
+    const enabled=promotions.enabled; const items=promotions.items;
+    if(!enabled||items.length===0){ promoDiv.style.display='none'; currencyTable.style.width='100%'; return; }
+    if(promoVisible){
+        promoDiv.innerHTML=''; const promo=items[promoIndex%items.length]; const tableHeight=currencyTable.offsetHeight;
+        if(promo.type==='img'){ const img=document.createElement('img'); img.src=promo.src; img.style.height=tableHeight+'px'; img.style.width='auto'; img.style.objectFit='contain'; promoDiv.appendChild(img);}
+        else if(promo.type==='video'){ const video=document.createElement('video'); video.src=promo.src; video.autoplay=true; video.loop=true; video.muted=true; video.controls=false; video.style.height=tableHeight+'px'; video.style.width='auto'; video.style.objectFit='contain'; promoDiv.appendChild(video);}
+        promoDiv.style.display='flex'; promoDiv.style.justifyContent='center'; promoDiv.style.alignItems='center'; currencyTable.style.width='80%'; promoIndex++; setTimeout(()=>{ promoVisible=false; togglePromotion(); },PROMO_DISPLAY_INTERVAL);
+    } else { promoDiv.style.display='none'; currencyTable.style.width='100%'; setTimeout(()=>{ promoVisible=true; togglePromotion(); },PROMO_HIDE_INTERVAL); }
+}
+togglePromotion();
+
+
+function showToast(message) {
+    // Create toast container if not exists
+    let toastContainer = document.getElementById('toastContainer');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toastContainer';
+        toastContainer.style.position = 'fixed';
+        toastContainer.style.bottom = '20px';
+        toastContainer.style.right = '20px';
+        toastContainer.style.zIndex = '2000';
+        toastContainer.style.display = 'flex';
+        toastContainer.style.flexDirection = 'column';
+        toastContainer.style.gap = '10px';
+        document.body.appendChild(toastContainer);
+    }
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.background = 'rgba(0, 0, 0, 0.85)';
+    toast.style.color = '#fff';
+    toast.style.padding = '12px 20px';
+    toast.style.borderRadius = '8px';
+    toast.style.fontSize = '1rem';
+    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+
+    toastContainer.appendChild(toast);
+
+    // Fade in
+    requestAnimationFrame(() => { toast.style.opacity = '1'; });
+
+    // Remove after 5 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.addEventListener('transitionend', () => toast.remove());
+    }, 5000);
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'F9') {
+      var btn = document.getElementById('settingsBtn');
+      btn.style.visibility = (btn.style.visibility === 'hidden') ? 'visible' : 'hidden';
+    }
+  });
+
+
+const branchEl = document.getElementById('branchName');
+
+// Load saved branch name from localStorage when page loads
+const savedBranch = localStorage.getItem('branchName');
+if (savedBranch) {
+    branchEl.textContent = savedBranch;
+}
+
+// Save branch name to localStorage whenever it changes
+branchEl.addEventListener('input', () => {
+    localStorage.setItem('branchName', branchEl.textContent.trim());
+});
+
+const marqueeEl = document.getElementById('marquee');
+
+// Load saved marquee text from localStorage on page load
+const savedMarquee = localStorage.getItem('marqueeText');
+if (savedMarquee) {
+    marqueeEl.textContent = savedMarquee;
+}
+
+// Save marquee text to localStorage whenever it changes
+marqueeEl.addEventListener('input', () => {
+    localStorage.setItem('marqueeText', marqueeEl.textContent.trim());
+});
+
+// Optional: basic scrolling effect
+function scrollMarquee() {
+    const container = document.getElementById('marquee-container');
+    let left = container.scrollLeft;
+    left += 1; // speed
+    if (left >= marqueeEl.scrollWidth) {
+        left = 0;
+    }
+    container.scrollLeft = left;
+    requestAnimationFrame(scrollMarquee);
+}
+scrollMarquee();
+
+
+
+</script>
+
+
+</body>
+</html>
