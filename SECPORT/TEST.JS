@@ -1,4 +1,3 @@
-
 const branchName = "KARAMA";
 
 // Fetch saved settings from localStorage or use default values
@@ -12,7 +11,7 @@ console.log({ adsEnabled, adInterval, adRotateInterval, displayInterval });
 let adCurrentlyVisible = false;
 let currentIndex = 0;
 const tableBody = document.getElementById("country-rates-body");
-const mainContent = document.querySelector('.main-content'); // Wrap header, table, marquee
+const mainContent = document.querySelector('.main-content');
 const adSection = document.querySelector('.ad-section');
 
 // ================= DYNAMIC DISPLAY SETTINGS =================
@@ -23,6 +22,7 @@ let TD_FONT_SIZE = localStorage.getItem("TD_FONT_SIZE") || "20px";
 // ================= LOAD CURRENCIES FROM LOCAL STORAGE =================
 let storedCurrencies = localStorage.getItem("currencies");
 let branchData = [];
+const baseURL = window.location.origin; // ✅ Automatically detects http://localhost:3000 or whatever
 
 if (storedCurrencies) {
   try {
@@ -34,7 +34,7 @@ if (storedCurrencies) {
         return {
           CountryName: cur["Currency Name"],
           CURRENCY_NAME_ARABIC: cur["Currency Name Arabic"] || "",
-          FlagUrl: `http://localhost:3000/FLAGS/${flagFile}`,
+          FlagUrl: `${baseURL}/FLAGS/${flagFile}`,   // ✅ dynamic base URL
           BuyRate: cur["Buy Rate"] || "",
           SellRate: cur["Sell Rate"] || "",
           TTRemittanceRate: cur["TTRemittance Rate"] || "",
@@ -52,12 +52,13 @@ if (storedCurrencies) {
   branchData = [getDefaultCurrency()];
 }
 
-// Default currency generator
+// ✅ Default currency generator
 function getDefaultCurrency() {
+  const baseURL = window.location.origin; // safe even if called later
   return {
     CountryName: "HONG KONG DOLLAR",
     CURRENCY_NAME_ARABIC: "",
-    FlagUrl: "http://localhost:3000/FLAGS/HK.png",
+    FlagUrl: `${baseURL}/FLAGS/hk.png`,
     BuyRate: "24.09",
     SellRate: "0.56",
     TTRemittanceRate: "1.00",
